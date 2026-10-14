@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="포스터 준비 중">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a4396"/>
+      <stop offset="1" stop-color="#5d86e6"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#g)"/>
+  <g fill="none" stroke="#fff" stroke-width="6" opacity=".85" transform="translate(140 220)">
+    <rect x="0" y="0" width="120" height="120" rx="10"/>
+    <path d="M30 0v120M90 0v120M0 40h30M0 80h30M90 40h30M90 80h30"/>
+  </g>
+  <text x="200" y="420" text-anchor="middle" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-size="22" font-weight="700" fill="#fff" opacity=".9">포스터 준비 중</text>
+</svg>

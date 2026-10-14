@@ -23,7 +23,10 @@
     <main class="main">
       {% include profile.html %}
       {{ content }}
-      <footer class="foot">© {{ site.time | date: "%Y" }} {{ site.title | upcase }} · 포스터 이미지의 저작권은 각 권리자에게 있습니다.</footer>
+      <footer class="foot">
+        © {{ site.time | date: "%Y" }} {{ site.title | upcase }} · 포스터 이미지의 저작권은 각 권리자에게 있습니다.<br>
+        This product uses the TMDB API but is not endorsed or certified by TMDB.
+      </footer>
     </main>
     <aside class="side">
       {% include sidebar.html %}

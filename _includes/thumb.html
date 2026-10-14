@@ -1,0 +1,8 @@
+{%- assign t = include.post.thumbnail -%}
+{%- if t == blank -%}
+{{ '/assets/img/no-poster.svg' | relative_url }}
+{%- elsif t contains '://' -%}
+{{ t }}
+{%- else -%}
+{{ t | relative_url }}
+{%- endif -%}

@@ -5,6 +5,7 @@ backend:
 
 locale: ko
 
+# 포스터 이미지는 assets/posters 에 저장됩니다.
 media_folder: /assets/posters
 public_folder: /assets/posters
 
@@ -16,6 +17,7 @@ collections:
     create: true
     extension: md
     format: frontmatter
+    # Jekyll은 파일명 앞의 날짜가 반드시 필요합니다.
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     summary: "{{title}} · {{categories}}"
     fields:
@@ -27,7 +29,7 @@ collections:
         options: ["영화", "시리즈"]
         default: "영화"
       - { label: 태그, name: tags, widget: list, required: false, hint: "장르, 감독 등 (예: 스릴러)" }
-      - { label: 포스터, name: thumbnail, widget: image }
+      - { label: 포스터, name: thumbnail, widget: image, required: false, hint: "비워 두면 제목·연도로 포스터를 자동으로 가져옵니다 (1~2분 소요)" }
       - { label: 개봉(방영) 연도, name: year, widget: number, value_type: int, min: 1900, max: 2100 }
       - label: 시청일
         name: watched

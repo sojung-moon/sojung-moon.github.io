@@ -4,7 +4,7 @@
    data-rating="{{ p.rating | default: 0 }}"
    data-date="{{ p.watched | default: p.date | date: '%Y-%m-%d' }}"
    data-status="{{ p.status | default: '완료' }}">
-  <img src="{{ p.thumbnail | relative_url }}" alt="{{ p.title | escape }}" loading="lazy">
+  <img src="{% include thumb.html post=p %}" alt="{{ p.title | escape }}" loading="lazy">
   {%- if p.status and p.status != '완료' -%}<span class="badge">{{ p.status }}</span>{%- endif -%}
   <span class="info">
     <b>{{ p.title }}</b>
