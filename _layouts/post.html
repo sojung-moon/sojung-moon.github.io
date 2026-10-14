@@ -18,7 +18,7 @@ layout: default
       {% endif %}
 
       <dl class="meta">
-        {% if page.year %}<dt>연도</dt><dd>{{ page.year }}</dd>{% endif %}
+        {% if page.year %}<dt>연도</dt><dd>{{ page.year }}년</dd>{% endif %}
         {% assign wy = page.watched | append: "" | slice: 0, 4 %}
         {% if wy != blank %}<dt>시청</dt><dd>{{ wy }}년</dd>{% endif %}
         {% if page.platform != blank %}<dt>플랫폼</dt><dd>{{ page.platform }}</dd>{% endif %}
