@@ -4,43 +4,30 @@
 </div>
 <div class="box results" id="results" hidden></div>
 
-<div class="box">
-  <h3>Menu</h3>
+<nav class="box nav" aria-label="사이트 메뉴">
   <ul>
     {%- for m in site.menu -%}
-    <li><a href="{{ m.url | relative_url }}">{% include icon.html name=m.icon %}<span>{{ m.title }}</span></a></li>
-    {%- endfor -%}  </ul>
-</div>
+    <li><a href="{{ m.url | relative_url }}"{% if page.url == m.url %} class="on"{% endif %}>{% include icon.html name=m.icon %}<span>{{ m.title }}</span>{% if m.url == '/archive/' %}<em>{{ site.posts.size }}</em>{% endif %}</a></li>
+    {%- endfor -%}
+  </ul>
 
-<div class="box">
-  <h3>Category</h3>
+  <p class="group-label">Category</p>
   <ul>
-    <li>
-      <a href="{{ '/archive/' | relative_url }}">{% include icon.html name="list" %}<span>전체</span><em>{{ site.posts.size }}</em></a>
-    </li>
     {%- for c in site.data.categories -%}
     {%- assign n = site.categories[c.name].size | default: 0 -%}
-    <li>
-      <a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.name }}</span><em>{{ n }}</em></a>
-    </li>
+    <li><a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.name }}</span><em>{{ n }}</em></a></li>
     {%- endfor -%}
   </ul>
-</div>
+</nav>
 
-<div class="box book">
-  <h3>Book</h3>
-  <ul>
-    <li>
-      <a href="{{ '/book/' | relative_url }}"{% if page.url == '/book/' %} class="on"{% endif %}>{% include icon.html name="book" %}<span>구절 모음</span><em>{{ site.data.quotes.items.size | default: 0 }}</em></a>
-    </li>
-  </ul>
-</div>
+<a class="box book{% if page.url == '/book/' %} on{% endif %}" href="{{ '/book/' | relative_url }}">
+  <span class="bk-ic">{% include icon.html name="book" %}</span>
+  <span class="bk-t"><b>Book</b><small>읽은 책의 문장들</small></span>
+  <em>{{ site.data.quotes.items.size | default: 0 }}</em>
+</a>
 
-<div class="box">
-  <h3>External Links</h3>
-  <ul>
-    {%- for l in site.links -%}
-    <li><a href="{{ l.url }}" target="_blank" rel="noopener">{% include icon.html name=l.icon %}<span>{{ l.title }}</span></a></li>
-    {%- endfor -%}
-  </ul>
+<div class="side-links">
+  {%- for l in site.links -%}
+  <a href="{{ l.url }}" target="_blank" rel="noopener" aria-label="{{ l.title }}" title="{{ l.title }}">{% include icon.html name=l.icon %}</a>
+  {%- endfor -%}
 </div>
