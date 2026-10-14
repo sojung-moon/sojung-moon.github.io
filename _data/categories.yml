@@ -5,9 +5,6 @@
 - name: 영화
   slug: movie
   icon: film
-- name: 드라마
-  slug: drama
+- name: 시리즈
+  slug: series
   icon: tv
-- name: 애니메이션
-  slug: anime
-  icon: spark

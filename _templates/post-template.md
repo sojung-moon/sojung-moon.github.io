@@ -3,7 +3,7 @@
 # 파일명의 날짜 = 시청한 날짜 (watched와 맞추면 정렬이 자연스럽습니다)
 title: 작품 제목
 original_title: Original Title
-categories: 영화            # 영화 / 드라마 / 애니메이션 중 하나 (_data/categories.yml 과 동일해야 함)
+categories: 영화            # 영화 / 시리즈 중 하나
 tags: [장르, 감독]
 thumbnail: /assets/posters/파일명.jpg
 year: 2024
