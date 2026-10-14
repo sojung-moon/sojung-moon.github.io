@@ -7,15 +7,6 @@ body_class: is-book
 {%- assign items = site.data.quotes.items -%}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap">
 
-<section class="book-hero">
-  <span class="book-hero-ic">{% include icon.html name="book" %}</span>
-  <div>
-    <h1>Book</h1>
-    <p>읽은 책에서 건져 올린 문장들</p>
-  </div>
-  <span class="book-count">{{ items.size | default: 0 }}</span>
-</section>
-
 <section class="card book-body">
   {% if items and items.size > 0 %}
   {% assign items = items | reverse %}
