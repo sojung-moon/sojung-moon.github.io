@@ -21,6 +21,9 @@ links:
   - title: Email
     url: mailto:soju@yonsei.ac.kr
     icon: mail
+  - title: Admin
+    url: /admin/
+    icon: link
 
 # 상단 Menu 버튼 / 사이드바 Menu
 menu:
