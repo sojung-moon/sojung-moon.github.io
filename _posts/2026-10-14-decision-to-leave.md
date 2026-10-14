@@ -2,7 +2,8 @@
 title: 헤어질 결심
 original_title: Decision to Leave
 categories: 영화
-tags: [스릴러, 로맨스, 박찬욱]
+tags:
+  - 박찬욱
 thumbnail: /assets/posters/decision-to-leave.svg
 year: 2022
 watched: 2026-10-14
@@ -10,6 +11,8 @@ rating: 4.5
 platform: OTT
 status: 완료
 rewatch: false
+episodes: null
+progress: null
 ---
 
 > 이 글은 레이아웃 확인용 **샘플**입니다. 지우고 직접 쓴 감상을 넣어 주세요.
