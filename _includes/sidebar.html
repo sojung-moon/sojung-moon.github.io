@@ -7,7 +7,6 @@
 <nav class="box nav" aria-label="사이트 메뉴">
   <ul>
     {%- for m in site.menu -%}
-    {%- if m.url == '/archive/' -%}{%- continue -%}{%- endif -%}
     <li><a href="{{ m.url | relative_url }}"{% if page.url == m.url %} class="on"{% endif %}>{% include icon.html name=m.icon %}<span>{{ m.title }}</span></a></li>
     {%- endfor -%}
   </ul>
