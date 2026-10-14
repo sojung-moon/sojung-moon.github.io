@@ -9,8 +9,7 @@
   <ul>
     {%- for m in site.menu -%}
     <li><a href="{{ m.url | relative_url }}">{% include icon.html name=m.icon %}<span>{{ m.title }}</span></a></li>
-    {%- endfor -%}
-  </ul>
+    {%- endfor -%}  </ul>
 </div>
 
 <div class="box">
@@ -25,6 +24,15 @@
       <a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.name }}</span><em>{{ n }}</em></a>
     </li>
     {%- endfor -%}
+  </ul>
+</div>
+
+<div class="box book">
+  <h3>Book</h3>
+  <ul>
+    <li>
+      <a href="{{ '/book/' | relative_url }}"{% if page.url == '/book/' %} class="on"{% endif %}>{% include icon.html name="book" %}<span>구절 모음</span><em>{{ site.data.quotes.items.size | default: 0 }}</em></a>
+    </li>
   </ul>
 </div>
 

@@ -8,6 +8,7 @@
   <link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/book.css' | relative_url }}">
   <script>
     (function () {
       try {
@@ -18,7 +19,7 @@
     })();
   </script>
 </head>
-<body data-base="{{ site.baseurl }}">
+<body class="{{ page.body_class }}" data-base="{{ site.baseurl }}">
   <div class="wrap">
     <main class="main">
       {% include profile.html %}

@@ -1,0 +1,34 @@
+---
+layout: default
+title: Book
+permalink: /book/
+body_class: is-book
+---
+{%- assign items = site.data.quotes.items -%}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap">
+
+<section class="book-hero">
+  <span class="book-hero-ic">{% include icon.html name="book" %}</span>
+  <div>
+    <h1>Book</h1>
+    <p>읽은 책에서 건져 올린 문장들</p>
+  </div>
+  <span class="book-count">{{ items.size | default: 0 }}</span>
+</section>
+
+<section class="card book-body">
+  {% if items and items.size > 0 %}
+  {% assign items = items | reverse %}
+  <ul class="book-list">
+    {% for q in items %}
+    <li class="book-card">
+      <blockquote>{{ q.quote | strip | escape | newline_to_br }}</blockquote>
+      <p class="book-src"><b>{{ q.title | escape }}</b>{% if q.author != blank %}<span>{{ q.author | escape }}</span>{% endif %}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty">아직 저장한 구절이 없어요.</p>
+  {% endif %}
+  <p class="book-tip"><a href="{{ '/admin/' | relative_url }}">관리자 화면</a>의 "Book"에서 추가할 수 있어요.</p>
+</section>

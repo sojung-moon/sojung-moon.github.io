@@ -1,0 +1,73 @@
+/* ───────── Book 영역: 영상물(파랑)과 구분되는 인디고 톤 ───────── */
+:root {
+  --book: #5b5bd6;
+  --book-soft: #ececfb;
+  --book-side: #d9d7f4;
+  --book-ink: #2b2a6b;
+  --book-from: #4a46c4;
+  --book-to: #8a79e6;
+}
+[data-theme="dark"] {
+  --book: #a3a3ff;
+  --book-soft: #23244a;
+  --book-side: #2b2a52;
+  --book-ink: #e6e6ff;
+  --book-from: #2f2d7a;
+  --book-to: #5446b3;
+}
+
+/* Book 페이지에서는 포인트 색을 인디고로 바꿉니다 (프로필 카드 버튼·링크 등) */
+body.is-book {
+  --accent: var(--book);
+  --accent-soft: var(--book-soft);
+  --on-accent: #ffffff;
+}
+[data-theme="dark"] body.is-book { --on-accent: #14153a; }
+
+/* 사이드바의 독립 Book 박스 */
+.box.book { background: var(--book-side); color: var(--book-ink); }
+.box.book h3 { display: flex; align-items: center; gap: 8px; letter-spacing: .04em; }
+.box.book li a:hover, .box.book li a.on { background: var(--hover); }
+
+/* 상단 배너 */
+.book-hero {
+  display: flex; align-items: center; gap: 16px;
+  padding: 24px 28px; border-radius: var(--radius); color: #fff;
+  background: linear-gradient(135deg, var(--book-from), var(--book-to));
+}
+.book-hero-ic {
+  display: grid; place-items: center; width: 52px; height: 52px; flex: none;
+  border-radius: 14px; background: rgba(255, 255, 255, .18);
+}
+.book-hero-ic .ic { width: 26px; height: 26px; }
+.book-hero h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: .02em; }
+.book-hero p { margin: 4px 0 0; font-size: 13px; opacity: .85; }
+.book-count {
+  margin-left: auto; padding: 4px 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, .2); font-size: 13px; font-weight: 700;
+}
+
+/* 구절 카드: 2단 세로 흐름 (포스터 그리드와 다른 배치) */
+.book-list { column-count: 2; column-gap: 16px; margin: 0; padding: 0; list-style: none; }
+.book-card {
+  position: relative; break-inside: avoid; margin: 0 0 16px; padding: 38px 22px 20px;
+  border-radius: 14px; background: var(--book-soft);
+}
+.book-card::before {
+  content: "\201C"; position: absolute; top: 6px; left: 18px;
+  font-family: Georgia, "Times New Roman", serif; font-size: 52px; line-height: 1;
+  color: var(--book); opacity: .55;
+}
+.book-card blockquote {
+  margin: 0 0 14px; font-size: 15.5px; line-height: 1.95; overflow-wrap: anywhere;
+  font-family: "Noto Serif KR", "Nanum Myeongjo", "Batang", "AppleMyungjo", serif;
+}
+.book-src { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; font-size: 12.5px; color: var(--muted); }
+.book-src b { color: var(--book); font-weight: 700; }
+.book-tip { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+.book-tip a { color: var(--book); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 700px) {
+  .book-list { column-count: 1; }
+  .book-hero { padding: 20px; }
+}

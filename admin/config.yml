@@ -50,3 +50,20 @@ collections:
       - { label: 전체 화수, name: episodes, widget: number, value_type: int, required: false, hint: "시리즈만 입력" }
       - { label: 현재까지 본 화수, name: progress, widget: number, value_type: int, required: false, hint: "시청중일 때만 입력" }
       - { label: 감상, name: body, widget: richtext, required: false }
+
+  - name: quotes
+    label: Book
+    files:
+      - name: quotes
+        label: 책 구절 모음
+        file: /_data/quotes.yml
+        fields:
+          - label: 구절 목록
+            label_singular: 구절
+            name: items
+            widget: list
+            summary: "{{fields.title}} · {{fields.author}}"
+            fields:
+              - { label: 책 제목, name: title, widget: string }
+              - { label: 저자, name: author, widget: string, required: false }
+              - { label: 구절, name: quote, widget: text }
