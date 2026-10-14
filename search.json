@@ -1,0 +1,15 @@
+---
+layout: null
+---
+[
+{%- for p in site.posts -%}
+  {
+    "title": {{ p.title | jsonify }},
+    "original": {{ p.original_title | default: "" | jsonify }},
+    "category": {{ p.categories | first | jsonify }},
+    "tags": {{ p.tags | jsonify }},
+    "url": {{ p.url | relative_url | jsonify }},
+    "thumb": {{ p.thumbnail | relative_url | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]

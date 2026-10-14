@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<section class="card section">
+  <div class="sec-head">
+    <h1>Recently watched</h1>
+    <span class="count">{{ site.posts.size }}</span>
+  </div>
+  {% if paginator.posts.size > 0 %}
+  <div class="grid">
+    {% for p in paginator.posts %}{% include post-card.html post=p %}{% endfor %}
+  </div>
+  {% else %}
+  <p class="empty">아직 기록이 없어요. <code>_posts</code>에 첫 글을 추가해 보세요.</p>
+  {% endif %}
+</section>
+
+{% if paginator.total_pages > 1 %}
+<nav class="dots" aria-label="페이지">
+  {% for i in (1..paginator.total_pages) %}
+    {% if i == paginator.page %}
+      <span class="dot on" aria-current="page"></span>
+    {% elsif i == 1 %}
+      <a class="dot" href="{{ '/' | relative_url }}" aria-label="1 페이지"></a>
+    {% else %}
+      <a class="dot" href="{{ site.paginate_path | replace: ':num', i | relative_url }}" aria-label="{{ i }} 페이지"></a>
+    {% endif %}
+  {% endfor %}
+</nav>
+{% endif %}

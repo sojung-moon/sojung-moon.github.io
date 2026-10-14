@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="샘플 포스터">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b3b8f"/>
+      <stop offset="1" stop-color="#5f8df0"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#g)"/>
+  <circle cx="300" cy="150" r="90" fill="#ffffff" opacity=".12"/>
+  <circle cx="110" cy="440" r="140" fill="#0b1f5c" opacity=".25"/>
+  <text x="200" y="330" text-anchor="middle" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-size="44" font-weight="800" fill="#fff">헤어질 결심</text>
+  <text x="200" y="560" text-anchor="middle" font-family="sans-serif" font-size="14" letter-spacing="3" fill="#fff" opacity=".7">SAMPLE POSTER</text>
+</svg>

@@ -1,0 +1,65 @@
+---
+layout: default
+title: Stats
+permalink: /stats/
+---
+{%- assign total = site.posts.size -%}
+{%- assign this_year = site.time | date: "%Y" -%}
+{%- assign sum = 0.0 -%}
+{%- assign rated = 0 -%}
+{%- assign rewatch = 0 -%}
+{%- assign year_count = 0 -%}
+{%- for p in site.posts -%}
+  {%- if p.rating -%}
+    {%- assign sum = sum | plus: p.rating -%}
+    {%- assign rated = rated | plus: 1 -%}
+  {%- endif -%}
+  {%- if p.rewatch -%}{%- assign rewatch = rewatch | plus: 1 -%}{%- endif -%}
+  {%- assign y = p.watched | default: p.date | date: "%Y" -%}
+  {%- if y == this_year -%}{%- assign year_count = year_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- if rated > 0 -%}
+  {%- assign avg = sum | divided_by: rated | round: 1 -%}
+{%- else -%}
+  {%- assign avg = "–" -%}
+{%- endif -%}
+
+<section class="card section stats">
+  <div class="sec-head"><h1>Stats</h1></div>
+
+  <div class="stat-cards">
+    <div class="stat"><b>{{ total }}</b><span>전체 기록</span></div>
+    <div class="stat"><b>{{ year_count }}</b><span>{{ this_year }}년 기록</span></div>
+    <div class="stat"><b>{{ avg }}</b><span>평균 별점</span></div>
+    <div class="stat"><b>{{ rewatch }}</b><span>다시 본 작품</span></div>
+  </div>
+
+  {% if total > 0 %}
+  <h2>카테고리별</h2>
+  {% for c in site.data.categories %}
+    {%- assign n = site.categories[c.name].size | default: 0 -%}
+    {%- assign pct = n | times: 100 | divided_by: total -%}
+    <div class="row"><span>{{ c.name }}</span><div class="bar"><span style="width: {{ pct }}%"></span></div><b>{{ n }}</b></div>
+  {% endfor %}
+
+  <h2>연도별</h2>
+  {% assign groups = site.posts | group_by_exp: "p", "p.watched | default: p.date | date: '%Y'" %}
+  {% for g in groups %}
+    {%- assign pct = g.items.size | times: 100 | divided_by: total -%}
+    <div class="row"><span>{{ g.name }}</span><div class="bar"><span style="width: {{ pct }}%"></span></div><b>{{ g.items.size }}</b></div>
+  {% endfor %}
+
+  <h2>별점 높은 작품 TOP 5</h2>
+  {% assign top = site.posts | sort: "rating" | reverse %}
+  <ol class="toplist">
+    {% for p in top limit: 5 %}
+    <li>
+      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+      <span>★ {{ p.rating }}</span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <p class="empty">기록이 쌓이면 통계가 나타납니다.</p>
+  {% endif %}
+</section>

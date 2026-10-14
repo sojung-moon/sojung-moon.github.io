@@ -1,0 +1,27 @@
+<header class="card profile">
+  <div class="profile-top">
+    <a class="avatar" href="{{ '/' | relative_url }}" aria-label="홈">
+      <img src="{{ '/assets/img/avatar.svg' | relative_url }}" alt="">
+    </a>
+    <div class="who">
+      <strong>{{ site.title }}</strong>
+      <span>{{ site.handle }}</span>
+    </div>
+    <div class="actions">
+      <div class="menu-wrap">
+        <button type="button" class="pill" id="menu-btn" aria-expanded="false" aria-controls="menu-pop">Menu</button>
+        <nav class="popover" id="menu-pop" hidden>
+          {%- for m in site.menu -%}
+          <a href="{{ m.url | relative_url }}">{{ m.title }}</a>
+          {%- endfor -%}
+        </nav>
+      </div>
+      <button type="button" class="round" id="theme-btn" aria-label="다크 모드 전환">
+        <span class="i-moon">{% include icon.html name="moon" %}</span>
+        <span class="i-sun">{% include icon.html name="sun" %}</span>
+      </button>
+    </div>
+  </div>
+  <hr>
+  <p class="tagline">{{ site.tagline }}</p>
+</header>

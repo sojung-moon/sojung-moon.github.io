@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{%- assign cname = page.categories | first -%}
+{%- assign cat = site.data.categories | where: "name", cname | first -%}
+<article class="card post">
+  <div class="post-head">
+    <img class="poster-lg" src="{{ page.thumbnail | relative_url }}" alt="{{ page.title | escape }} 포스터">
+    <div class="post-meta">
+      <p class="kicker">
+        {%- if cat -%}<a href="{{ '/category/' | append: cat.slug | append: '/' | relative_url }}">{{ cname }}</a>{%- else -%}{{ cname }}{%- endif -%}
+      </p>
+      <h1>{{ page.title }}</h1>
+      {% if page.original_title %}<p class="orig">{{ page.original_title }}</p>{% endif %}
+
+      {% if page.rating %}
+      <div class="rating">{% include stars.html rating=page.rating %}<span>{{ page.rating }}</span></div>
+      {% endif %}
+
+      <dl class="meta">
+        {% if page.year %}<dt>연도</dt><dd>{{ page.year }}</dd>{% endif %}
+        {% if page.watched %}<dt>시청일</dt><dd>{{ page.watched | date: "%Y.%m.%d" }}</dd>{% endif %}
+        {% if page.platform %}<dt>플랫폼</dt><dd>{{ page.platform }}</dd>{% endif %}
+        {% if page.episodes %}
+        <dt>분량</dt>
+        <dd>{% if page.progress %}{{ page.progress }} / {% endif %}{{ page.episodes }}화</dd>
+        {% endif %}
+        {% if page.status %}<dt>상태</dt><dd>{{ page.status }}{% if page.rewatch %} · 다시 봄{% endif %}</dd>{% endif %}
+      </dl>
+
+      {% if page.tags.size > 0 %}
+      <ul class="tags">{% for t in page.tags %}<li>#{{ t }}</li>{% endfor %}</ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <nav class="pager" aria-label="이전·다음 글">
+    {% if page.previous %}<a class="prev" href="{{ page.previous.url | relative_url }}"><small>← 이전 기록</small><span>{{ page.previous.title }}</span></a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a class="next" href="{{ page.next.url | relative_url }}"><small>다음 기록 →</small><span>{{ page.next.title }}</span></a>{% endif %}
+  </nav>
+</article>

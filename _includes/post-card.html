@@ -1,0 +1,13 @@
+{%- assign p = include.post -%}
+<a class="poster" href="{{ p.url | relative_url }}"
+   data-title="{{ p.title | escape }}"
+   data-rating="{{ p.rating | default: 0 }}"
+   data-date="{{ p.watched | default: p.date | date: '%Y-%m-%d' }}"
+   data-status="{{ p.status | default: '완료' }}">
+  <img src="{{ p.thumbnail | relative_url }}" alt="{{ p.title | escape }}" loading="lazy">
+  {%- if p.status and p.status != '완료' -%}<span class="badge">{{ p.status }}</span>{%- endif -%}
+  <span class="info">
+    <b>{{ p.title }}</b>
+    <small>{% if p.rating %}★ {{ p.rating }}{% endif %}{% if p.rating and p.year %} · {% endif %}{{ p.year }}</small>
+  </span>
+</a>

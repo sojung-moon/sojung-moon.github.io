@@ -1,0 +1,13 @@
+# 사이드바 Category 목록.
+# name  : 글 front matter의 categories 값과 정확히 같아야 합니다.
+# slug  : /category/<slug>/ 주소
+# icon  : _includes/icon.html에 정의된 아이콘 이름
+- name: 영화
+  slug: movie
+  icon: film
+- name: 드라마
+  slug: drama
+  icon: tv
+- name: 애니메이션
+  slug: anime
+  icon: spark

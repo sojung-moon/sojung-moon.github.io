@@ -1,0 +1,38 @@
+<div class="box search">
+  {% include icon.html name="search" %}
+  <input id="q" type="search" placeholder="search" autocomplete="off" aria-label="검색">
+</div>
+<div class="box results" id="results" hidden></div>
+
+<div class="box">
+  <h3>Menu</h3>
+  <ul>
+    {%- for m in site.menu -%}
+    <li><a href="{{ m.url | relative_url }}">{% include icon.html name=m.icon %}<span>{{ m.title }}</span></a></li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+<div class="box">
+  <h3>Category</h3>
+  <ul>
+    <li>
+      <a href="{{ '/archive/' | relative_url }}">{% include icon.html name="list" %}<span>전체</span><em>{{ site.posts.size }}</em></a>
+    </li>
+    {%- for c in site.data.categories -%}
+    {%- assign n = site.categories[c.name].size | default: 0 -%}
+    <li>
+      <a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.name }}</span><em>{{ n }}</em></a>
+    </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+<div class="box">
+  <h3>External Links</h3>
+  <ul>
+    {%- for l in site.links -%}
+    <li><a href="{{ l.url }}" target="_blank" rel="noopener">{% include icon.html name=l.icon %}<span>{{ l.title }}</span></a></li>
+    {%- endfor -%}
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+---
+layout: default
+title: Archive
+permalink: /archive/
+---
+<section class="card section">
+  <div class="sec-head">
+    <h1>Archive</h1>
+    <span class="count">{{ site.posts.size }}</span>
+  </div>
+
+  {% if site.posts.size > 0 %}
+    {% include controls.html %}
+    {% assign groups = site.posts | group_by_exp: "p", "p.watched | default: p.date | date: '%Y'" %}
+    {% for g in groups %}
+    <div class="year-group">
+      <h2>{{ g.name }}<small>{{ g.items.size }}</small></h2>
+      <div class="grid">
+        {% for p in g.items %}{% include post-card.html post=p %}{% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty">아직 기록이 없어요.</p>
+  {% endif %}
+</section>

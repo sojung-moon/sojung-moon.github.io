@@ -1,0 +1,58 @@
+# ───────── 사이트 기본 정보 (여기부터 수정하세요) ─────────
+title: Midnight Reel
+handle: "@midnight_reel"
+tagline: 보고, 느끼고, 기록하다.
+description: 영화·드라마·애니메이션 감상 아카이브
+lang: ko
+timezone: Asia/Seoul
+
+# GitHub Pages 주소
+# - 유저 사이트(<유저명>.github.io 저장소): url만 채우고 baseurl은 비워둡니다.
+# - 프로젝트 사이트(다른 이름의 저장소): baseurl에 "/저장소이름"을 적습니다.
+url: "https://sojung-moon.github.io"
+baseurl: ""
+
+# 사이드바 External Links
+github_username: sojung-moon
+links:
+  - title: GitHub
+    url: https://github.com/sojung-moon
+    icon: github
+  - title: Email
+    url: mailto:soju@yonsei.ac.kr
+    icon: mail
+
+# 상단 Menu 버튼 / 사이드바 Menu
+menu:
+  - title: Home
+    url: /
+    icon: home
+  - title: Archive
+    url: /archive/
+    icon: archive
+  - title: Stats
+    url: /stats/
+    icon: chart
+
+# ───────── 빌드 설정 (보통 건드릴 필요 없음) ─────────
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+plugins:
+  - jekyll-paginate
+paginate: 12
+paginate_path: "/page:num/"
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - _templates
+  - vendor
+  - node_modules

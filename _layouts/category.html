@@ -1,0 +1,19 @@
+---
+layout: default
+---
+{%- assign posts = site.categories[page.category_name] -%}
+<section class="card section">
+  <div class="sec-head">
+    <h1>{{ page.category_name }}</h1>
+    <span class="count">{{ posts.size | default: 0 }}</span>
+  </div>
+  {{ content }}
+  {% if posts and posts.size > 0 %}
+    {% include controls.html sort=true %}
+    <div class="grid" data-list>
+      {% for p in posts %}{% include post-card.html post=p %}{% endfor %}
+    </div>
+  {% else %}
+    <p class="empty">아직 기록이 없어요. <code>_posts</code>에 첫 글을 추가해 보세요.</p>
+  {% endif %}
+</section>
