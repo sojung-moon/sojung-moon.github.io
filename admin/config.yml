@@ -1,0 +1,48 @@
+backend:
+  name: github
+  repo: sojung-moon/sojung-moon.github.io
+  branch: main
+
+locale: ko
+
+media_folder: /assets/posters
+public_folder: /assets/posters
+
+collections:
+  - name: posts
+    label: 기록
+    label_singular: 기록
+    folder: /_posts
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} · {{categories}}"
+    fields:
+      - { label: 제목, name: title, widget: string }
+      - { label: 원제, name: original_title, widget: string, required: false }
+      - label: 카테고리
+        name: categories
+        widget: select
+        options: ["영화", "시리즈"]
+        default: "영화"
+      - { label: 태그, name: tags, widget: list, required: false, hint: "장르, 감독 등 (예: 스릴러)" }
+      - { label: 포스터, name: thumbnail, widget: image }
+      - { label: 개봉(방영) 연도, name: year, widget: number, value_type: int, min: 1900, max: 2100 }
+      - label: 시청일
+        name: watched
+        widget: datetime
+        type: date
+        date_format: "YYYY-MM-DD"
+        time_format: false
+      - { label: 별점, name: rating, widget: number, value_type: float, min: 0, max: 5, step: 0.5, hint: "0.5 단위, 5점 만점" }
+      - { label: 본 곳, name: platform, widget: string, required: false, hint: "예: 넷플릭스, 극장" }
+      - label: 상태
+        name: status
+        widget: select
+        options: ["완료", "시청중", "하차"]
+        default: "완료"
+      - { label: 다시 봄, name: rewatch, widget: boolean, default: false }
+      - { label: 전체 화수, name: episodes, widget: number, value_type: int, required: false, hint: "시리즈만 입력" }
+      - { label: 현재까지 본 화수, name: progress, widget: number, value_type: int, required: false, hint: "시청중일 때만 입력" }
+      - { label: 감상, name: body, widget: richtext }
