@@ -11,7 +11,7 @@ layout: default
         {%- if cat -%}<a href="{{ '/category/' | append: cat.slug | append: '/' | relative_url }}">{{ cname }}</a>{%- else -%}{{ cname }}{%- endif -%}
       </p>
       <h1>{{ page.title }}</h1>
-      {% if page.original_title %}<p class="orig">{{ page.original_title }}</p>{% endif %}
+      {% if page.original_title != blank %}<p class="orig">{{ page.original_title }}</p>{% endif %}
 
       {% if page.rating %}
       <div class="rating">{% include stars.html rating=page.rating %}<span>{{ page.rating }}</span></div>
@@ -19,8 +19,9 @@ layout: default
 
       <dl class="meta">
         {% if page.year %}<dt>연도</dt><dd>{{ page.year }}</dd>{% endif %}
-        {% if page.watched %}<dt>시청일</dt><dd>{{ page.watched | date: "%Y.%m.%d" }}</dd>{% endif %}
-        {% if page.platform %}<dt>플랫폼</dt><dd>{{ page.platform }}</dd>{% endif %}
+        {% assign wy = page.watched | append: "" | slice: 0, 4 %}
+        {% if wy != blank %}<dt>시청</dt><dd>{{ wy }}년</dd>{% endif %}
+        {% if page.platform != blank %}<dt>플랫폼</dt><dd>{{ page.platform }}</dd>{% endif %}
         {% if page.episodes %}
         <dt>분량</dt>
         <dd>{% if page.progress %}{{ page.progress }} / {% endif %}{{ page.episodes }}화</dd>

@@ -11,7 +11,7 @@ permalink: /archive/
 
   {% if site.posts.size > 0 %}
     {% include controls.html %}
-    {% assign groups = site.posts | group_by_exp: "p", "p.watched | default: p.date | date: '%Y'" %}
+    {% assign groups = site.posts | group_by_exp: "p", "p.watched | default: p.date | append: '' | slice: 0, 4" | sort: "name" | reverse %}
     {% for g in groups %}
     <div class="year-group">
       <h2>{{ g.name }}<small>{{ g.items.size }}</small></h2>

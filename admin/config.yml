@@ -31,12 +31,14 @@ collections:
       - { label: 태그, name: tags, widget: list, required: false, hint: "장르, 감독 등 (예: 스릴러)" }
       - { label: 포스터, name: thumbnail, widget: image, required: false, hint: "비워 두면 제목·연도로 포스터를 자동으로 가져옵니다 (1~2분 소요)" }
       - { label: 개봉(방영) 연도, name: year, widget: number, value_type: int, min: 1900, max: 2100 }
-      - label: 시청일
+      - label: 시청 연도
         name: watched
-        widget: datetime
-        type: date
-        date_format: "YYYY-MM-DD"
-        time_format: false
+        widget: number
+        value_type: int
+        min: 1900
+        max: 2100
+        required: false
+        hint: "본 연도만 입력 (예: 2025). 비워 두면 글을 저장한 해로 정렬·통계에 쓰입니다"
       - { label: 별점, name: rating, widget: number, value_type: float, min: 0, max: 5, step: 0.5, hint: "0.5 단위, 5점 만점" }
       - { label: 본 곳, name: platform, widget: string, required: false, hint: "예: 넷플릭스, 극장" }
       - label: 상태
@@ -47,4 +49,4 @@ collections:
       - { label: 다시 봄, name: rewatch, widget: boolean, default: false }
       - { label: 전체 화수, name: episodes, widget: number, value_type: int, required: false, hint: "시리즈만 입력" }
       - { label: 현재까지 본 화수, name: progress, widget: number, value_type: int, required: false, hint: "시청중일 때만 입력" }
-      - { label: 감상, name: body, widget: richtext }
+      - { label: 감상, name: body, widget: richtext, required: false }
