@@ -9,7 +9,7 @@ layout: default
   </div>
   {{ content }}
   {% if posts and posts.size > 0 %}
-    {% include controls.html %}
+    {% include controls.html sort=true %}
     <div class="grid" data-list>
       {% for p in posts %}{% include post-card.html post=p %}{% endfor %}
     </div>

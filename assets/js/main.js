@@ -111,9 +111,11 @@
         rating: (a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating),
         title: (a, b) => a.dataset.title.localeCompare(b.dataset.title, 'ko'),
       };
-      sortSel.addEventListener('change', () => {
+      const applySort = () => {
         cards.slice().sort(sorters[sortSel.value]).forEach((c) => list.appendChild(c));
-      });
+      };
+      sortSel.addEventListener('change', applySort);
+      applySort(); // 첫 항목(별점 높은순)이 기본 정렬
     }
   });
 })();
