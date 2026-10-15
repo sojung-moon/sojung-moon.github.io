@@ -120,7 +120,10 @@ def main():
 
         title = get(fm, "title") or ""
         original = get(fm, "original_title") or ""
-        titles = [t for i, t in enumerate([title, original]) if t and t not in [title, original][:i]]
+        titles = []
+        for t in [title, original, re.sub(r"\s*(시즌|Season)\s*\d+.*$", "", title), title.split(":")[0].strip()]:
+            if t and t not in titles:
+                titles.append(t)
         ym = re.search(r"\d{4}", get(fm, "year") or "")
         year = int(ym.group(0)) if ym else None
         kind = "movie" if category(fm) == "영화" else "tv"
@@ -130,6 +133,7 @@ def main():
             print("    제목이 없어 건너뜁니다.")
             continue
         url = find_poster(kind, titles, year)
+        time.sleep(0.05)
         if auth_failed:
             return 1
         if not url:
