@@ -28,13 +28,8 @@ body.is-book {
 /* 구절 카드: 2단 세로 흐름 (포스터 그리드와 다른 배치) */
 .book-list { column-count: 2; column-gap: 16px; margin: 0; padding: 0; list-style: none; }
 .book-card {
-  position: relative; break-inside: avoid; margin: 0 0 16px; padding: 38px 22px 20px;
+  position: relative; break-inside: avoid; margin: 0 0 16px; padding: 22px;
   border-radius: 14px; background: var(--book-soft);
-}
-.book-card::before {
-  content: "\201C"; position: absolute; top: 6px; left: 18px;
-  font-family: Georgia, "Times New Roman", serif; font-size: 52px; line-height: 1;
-  color: var(--book); opacity: .55;
 }
 .book-card blockquote {
   margin: 0 0 14px; font-size: 14px; line-height: 1.8; overflow-wrap: anywhere;
