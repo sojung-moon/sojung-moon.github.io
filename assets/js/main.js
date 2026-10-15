@@ -87,7 +87,24 @@
   $$('[data-controls]').forEach((ctrl) => {
     const scope = ctrl.parentElement;
     const list = $('[data-list]', scope);
-    if (!list) return;
+    if (!list) {
+      /* 홈(아카이브): 연도 칩으로 연도 묶음을 걸러냅니다 */
+      const chipBox0 = $('.chips', ctrl);
+      const groups = $$('.year-group', scope);
+      if (!chipBox0 || !groups.length) return;
+      ['', ...groups.map((g) => g.dataset.year)].forEach((y) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip' + (y === '' ? ' on' : '');
+        b.textContent = y === '' ? '전체' : y;
+        b.addEventListener('click', () => {
+          $$('.chip', chipBox0).forEach((c) => c.classList.toggle('on', c === b));
+          groups.forEach((g) => { g.hidden = !!y && g.dataset.year !== y; });
+        });
+        chipBox0.appendChild(b);
+      });
+      return;
+    }
     const cards = $$('.poster', list);
     const sortSel = $('.sort', ctrl);
     const chipBox = $('.chips', ctrl);
