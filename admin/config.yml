@@ -17,8 +17,8 @@ collections:
     create: true
     extension: md
     format: frontmatter
-    # Jekyll은 파일명 앞의 날짜가 반드시 필요합니다.
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    # Jekyll은 파일명 앞의 날짜가 필요합니다. 날짜 뒤는 랜덤 문자열 → 글 주소가 /post/랜덤문자/ 가 됩니다.
+    slug: "{{year}}-{{month}}-{{day}}-{{uuid_short}}"
     summary: "{{title}} · {{categories}}"
     fields:
       - { label: 제목, name: title, widget: string }
