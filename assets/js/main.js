@@ -84,7 +84,32 @@
   }
 
   /* 연도 필터 + 정렬 + 페이지 나누기 (카테고리 페이지) */
-  const PER_PAGE = 24;
+  /* 한 페이지 = PC 가로 4 x 세로 6줄, 모바일 가로 3 x 세로 8줄.
+     구분선·연도 제목 때문에 줄이 끊겨도 '줄 수'를 기준으로 나눕니다. */
+  const narrow = window.matchMedia('(max-width: 860px)');
+  const layout = () => (narrow.matches ? { cols: 3, rows: 8 } : { cols: 4, rows: 6 });
+  const paginate = (items, keyFn) => {
+    const { cols, rows } = layout();
+    const pages = [];
+    let cur = [];
+    let left = rows;
+    let i = 0;
+    while (i < items.length) {
+      let j = i;
+      while (j < items.length && keyFn(items[j]) === keyFn(items[i])) j++;
+      let idx = i;
+      while (idx < j) {
+        if (left === 0) { pages.push(cur); cur = []; left = rows; }
+        const take = Math.min(j - idx, left * cols);
+        cur = cur.concat(items.slice(idx, idx + take));
+        left -= Math.ceil(take / cols);
+        idx += take;
+      }
+      i = j;
+    }
+    pages.push(cur);
+    return pages;
+  };
   /* ‹ 1 … 4 5 6 … 17 › 형태의 간단한 페이지 이동 */
   const buildPager = (box, page, pages, go) => {
     box.innerHTML = '';
@@ -139,9 +164,10 @@
       let page0 = 1;
       const draw = () => {
         const shown = all.filter((c) => !y0 || c.dataset.date.slice(0, 4) === y0);
-        const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
+        const split = paginate(shown, (c) => c.dataset.date.slice(0, 4));
+        const pages = split.length;
         if (page0 > pages) page0 = pages;
-        const cur = new Set(shown.slice((page0 - 1) * PER_PAGE, page0 * PER_PAGE));
+        const cur = new Set(split[page0 - 1]);
         all.forEach((c) => { c.hidden = !cur.has(c); });
         groups.forEach((g) => { g.hidden = !$$('.poster', g).some((c) => !c.hidden); });
         buildPager(pager0, page0, pages, (i) => {
@@ -164,6 +190,7 @@
         chipBox0.appendChild(b);
       });
       draw();
+      narrow.addEventListener('change', () => { page0 = 1; draw(); });
       return;
     }
     const cards = $$('.poster', list);
@@ -184,16 +211,18 @@
 
     const render = () => {
       const shown = order.filter((c) => !year || c.dataset.date.slice(0, 4) === year);
-      const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
+      const byRating = !!sortSel && sortSel.value === 'rating';
+      const key = (c) => (byRating ? String(parseFloat(c.dataset.rating) || 0) : '');
+      const split = paginate(shown, key);
+      const pages = split.length;
       if (page > pages) page = pages;
       $$('.divider', list).forEach((d) => d.remove());
       order.forEach((c) => list.appendChild(c));
       cards.forEach((c) => { c.hidden = true; });
-      const visible = shown.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      const visible = split[page - 1];
       visible.forEach((c) => { c.hidden = false; });
-      if (sortSel && sortSel.value === 'rating') {
+      if (byRating) {
         /* "4"와 "4.0"처럼 표기가 달라도 같은 별점으로 묶기 위해 숫자로 비교합니다 */
-        const key = (c) => String(parseFloat(c.dataset.rating) || 0);
         const count = {};
         shown.forEach((c) => { count[key(c)] = (count[key(c)] || 0) + 1; });
         let prev = null;
@@ -231,6 +260,8 @@
         chipBox.appendChild(b);
       });
     }
+
+    narrow.addEventListener('change', () => { page = 1; render(); });
 
     if (sortSel) {
       const applySort = () => { order = cards.slice().sort(sorters[sortSel.value]); page = 1; render(); };
