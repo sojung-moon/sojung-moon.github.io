@@ -121,11 +121,8 @@ button, input, select { font: inherit; color: inherit; }
 
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 /* 홈 화면: 최신 6개만, 작은 포스터 */
-.home-grid { grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.home-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .home-grid .poster:nth-child(n+7), .home-dots { display: none; }
-.home-grid .poster .info { padding: 24px 8px 8px; }
-.home-grid .poster .info b { font-size: 12px; }
-.home-grid .poster .info small { font-size: 10.5px; }
 .poster {
   position: relative; display: block; overflow: hidden;
   aspect-ratio: 2 / 3; border-radius: 10px; background: var(--accent-soft);

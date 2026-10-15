@@ -49,16 +49,6 @@ permalink: /stats/
     <div class="row"><span>{{ g.name }}</span><div class="bar"><span style="width: {{ pct }}%"></span></div><b>{{ g.items.size }}</b></div>
   {% endfor %}
 
-  <h2>별점 높은 작품 TOP 5</h2>
-  {% assign top = site.posts | sort: "rating" | reverse %}
-  <ol class="toplist">
-    {% for p in top limit: 5 %}
-    <li>
-      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-      <span>★ {{ p.rating }}</span>
-    </li>
-    {% endfor %}
-  </ol>
   {% else %}
   <p class="empty">기록이 쌓이면 통계가 나타납니다.</p>
   {% endif %}
