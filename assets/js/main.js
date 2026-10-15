@@ -192,16 +192,19 @@
       const visible = shown.slice((page - 1) * PER_PAGE, page * PER_PAGE);
       visible.forEach((c) => { c.hidden = false; });
       if (sortSel && sortSel.value === 'rating') {
+        /* "4"와 "4.0"처럼 표기가 달라도 같은 별점으로 묶기 위해 숫자로 비교합니다 */
+        const key = (c) => String(parseFloat(c.dataset.rating) || 0);
         const count = {};
-        shown.forEach((c) => { count[c.dataset.rating] = (count[c.dataset.rating] || 0) + 1; });
+        shown.forEach((c) => { count[key(c)] = (count[key(c)] || 0) + 1; });
         let prev = null;
         visible.forEach((c) => {
-          if (c.dataset.rating === prev) return;
-          prev = c.dataset.rating;
+          const k = key(c);
+          if (k === prev) return;
+          prev = k;
           const d = document.createElement('div');
           d.className = 'divider';
-          const r = parseFloat(prev);
-          d.innerHTML = '<span>' + (r > 0 ? '★ ' + r : '별점 없음') + '</span><small>' + count[prev] + '</small>';
+          const r = parseFloat(k);
+          d.innerHTML = '<span>' + (r > 0 ? '★ ' + r : '별점 없음') + '</span><small>' + count[k] + '</small>';
           list.insertBefore(d, c);
         });
       }
