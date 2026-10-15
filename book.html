@@ -5,8 +5,6 @@ permalink: /book/
 body_class: is-book
 ---
 {%- assign items = site.data.quotes.items -%}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap">
-
 <section class="card book-body">
   {% if items and items.size > 0 %}
   {% assign items = items | reverse %}
@@ -21,5 +19,4 @@ body_class: is-book
   {% else %}
   <p class="empty">아직 저장한 구절이 없어요.</p>
   {% endif %}
-  <p class="book-tip"><a href="{{ '/admin/' | relative_url }}">관리자 화면</a>의 "Book"에서 추가할 수 있어요.</p>
 </section>

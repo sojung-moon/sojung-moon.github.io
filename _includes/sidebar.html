@@ -20,10 +20,11 @@
   </ul>
 </nav>
 
-<a class="box book{% if page.url == '/book/' %} on{% endif %}" href="{{ '/book/' | relative_url }}">
-  <span class="bk-ic">{% include icon.html name="book" %}</span>
-  <span class="bk-t"><b>Book</b></span>
-</a>
+<nav class="box nav book" aria-label="Book">
+  <ul>
+    <li><a href="{{ '/book/' | relative_url }}"{% if page.url == '/book/' %} class="on"{% endif %}>{% include icon.html name="book" %}<span>Book</span></a></li>
+  </ul>
+</nav>
 
 <div class="side-links">
   {%- for l in site.links -%}
