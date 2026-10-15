@@ -153,6 +153,13 @@ a.dot:hover { background: var(--muted); }
 .dot.on { background: var(--accent); }
 
 /* ───────── 필터 / 정렬 ───────── */
+.pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 22px; }
+.pg {
+  min-width: 34px; height: 34px; padding: 0 8px; border-radius: 999px; cursor: pointer;
+  background: transparent; border: 1px solid var(--line); color: var(--muted); font-size: 13px;
+}
+.pg:hover { color: var(--accent); border-color: var(--accent); }
+.pg.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
 .controls { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {

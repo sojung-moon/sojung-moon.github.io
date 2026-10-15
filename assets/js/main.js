@@ -82,40 +82,75 @@
     });
   }
 
-  /* 상태 필터 + 정렬 (카테고리 / 아카이브 페이지) */
+  /* 연도 필터 + 정렬 + 페이지 나누기 (카테고리 페이지) */
+  const PER_PAGE = 24;
   $$('[data-controls]').forEach((ctrl) => {
     const scope = ctrl.parentElement;
-    const cards = $$('.poster', scope);
-    const sortSel = $('.sort', ctrl);
     const list = $('[data-list]', scope);
-    let status = '';
+    if (!list) return;
+    const cards = $$('.poster', list);
+    const sortSel = $('.sort', ctrl);
+    const chipBox = $('.chips', ctrl);
+    const pager = document.createElement('nav');
+    pager.className = 'pages';
+    pager.setAttribute('aria-label', '페이지');
+    list.after(pager);
+    let year = '';
+    let page = 1;
+    let order = cards.slice();
 
-    const applyFilter = () => {
-      cards.forEach((c) => { c.hidden = !!status && c.dataset.status !== status; });
-      $$('.year-group', scope).forEach((g) => {
-        g.hidden = !$$('.poster', g).some((c) => !c.hidden);
-      });
+    const sorters = {
+      rating: (a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating),
+      title: (a, b) => a.dataset.title.localeCompare(b.dataset.title, 'ko'),
     };
 
-    $$('.chip', ctrl).forEach((chip) => {
-      chip.addEventListener('click', () => {
-        status = chip.dataset.status;
-        $$('.chip', ctrl).forEach((c) => c.classList.toggle('on', c === chip));
-        applyFilter();
-      });
-    });
+    const render = () => {
+      const shown = order.filter((c) => !year || c.dataset.date.slice(0, 4) === year);
+      const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
+      if (page > pages) page = pages;
+      order.forEach((c) => list.appendChild(c));
+      cards.forEach((c) => { c.hidden = true; });
+      shown.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach((c) => { c.hidden = false; });
+      pager.innerHTML = '';
+      if (pages < 2) return;
+      for (let i = 1; i <= pages; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pg' + (i === page ? ' on' : '');
+        b.textContent = i;
+        if (i === page) b.setAttribute('aria-current', 'page');
+        b.addEventListener('click', () => {
+          page = i;
+          render();
+          scope.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        pager.appendChild(b);
+      }
+    };
 
-    if (sortSel && list) {
-      const sorters = {
-        date: (a, b) => b.dataset.date.localeCompare(a.dataset.date),
-        rating: (a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating),
-        title: (a, b) => a.dataset.title.localeCompare(b.dataset.title, 'ko'),
-      };
-      const applySort = () => {
-        cards.slice().sort(sorters[sortSel.value]).forEach((c) => list.appendChild(c));
-      };
+    if (chipBox) {
+      const years = Array.from(new Set(cards.map((c) => c.dataset.date.slice(0, 4)))).sort().reverse();
+      ['', ...years].forEach((y) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip' + (y === '' ? ' on' : '');
+        b.textContent = y === '' ? '전체' : y;
+        b.addEventListener('click', () => {
+          year = y;
+          page = 1;
+          $$('.chip', chipBox).forEach((c) => c.classList.toggle('on', c === b));
+          render();
+        });
+        chipBox.appendChild(b);
+      });
+    }
+
+    if (sortSel) {
+      const applySort = () => { order = cards.slice().sort(sorters[sortSel.value]); page = 1; render(); };
       sortSel.addEventListener('change', applySort);
       applySort(); // 첫 항목(별점 높은순)이 기본 정렬
+    } else {
+      render();
     }
   });
 })();
