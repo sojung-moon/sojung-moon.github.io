@@ -154,6 +154,13 @@ a.dot:hover { background: var(--muted); }
 .dot.on { background: var(--accent); }
 
 /* ───────── 필터 / 정렬 ───────── */
+.divider {
+  grid-column: 1 / -1; display: flex; align-items: baseline; gap: 8px;
+  margin: 14px 0 2px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
+  font-size: 14px; font-weight: 700; color: var(--accent);
+}
+.divider:first-child { margin-top: 2px; }
+.divider small { font-size: 12px; font-weight: 400; color: var(--muted); }
 .pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 22px; }
 @media (max-width: 560px) { .pg { min-width: 32px; height: 32px; padding: 0 6px; } .pages { gap: 4px; } }
 .pg {

@@ -122,6 +122,13 @@
       const chipBox0 = $('.chips', ctrl);
       const groups = $$('.year-group', scope);
       if (!chipBox0 || !groups.length) return;
+      groups.forEach((g) => {
+        const grid = $('.grid', g);
+        if (!grid) return;
+        $$('.poster', grid)
+          .sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating))
+          .forEach((c) => grid.appendChild(c));
+      });
       const all = $$('.poster', scope);
       const pager0 = document.createElement('nav');
       pager0.className = 'pages';
@@ -178,9 +185,25 @@
       const shown = order.filter((c) => !year || c.dataset.date.slice(0, 4) === year);
       const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
       if (page > pages) page = pages;
+      $$('.divider', list).forEach((d) => d.remove());
       order.forEach((c) => list.appendChild(c));
       cards.forEach((c) => { c.hidden = true; });
-      shown.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach((c) => { c.hidden = false; });
+      const visible = shown.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      visible.forEach((c) => { c.hidden = false; });
+      if (sortSel && sortSel.value === 'rating') {
+        const count = {};
+        shown.forEach((c) => { count[c.dataset.rating] = (count[c.dataset.rating] || 0) + 1; });
+        let prev = null;
+        visible.forEach((c) => {
+          if (c.dataset.rating === prev) return;
+          prev = c.dataset.rating;
+          const d = document.createElement('div');
+          d.className = 'divider';
+          const r = parseFloat(prev);
+          d.innerHTML = '<span>' + (r > 0 ? '★ ' + r : '별점 없음') + '</span><small>' + count[prev] + '</small>';
+          list.insertBefore(d, c);
+        });
+      }
       buildPager(pager, page, pages, (i) => {
         page = i;
         render();
