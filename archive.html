@@ -10,7 +10,6 @@ permalink: /archive/
   </div>
 
   {% if site.posts.size > 0 %}
-    {% include controls.html %}
     {% assign groups = site.posts | group_by_exp: "p", "p.watched | default: p.date | append: '' | slice: 0, 4" | sort: "name" | reverse %}
     {% for g in groups %}
     <div class="year-group">

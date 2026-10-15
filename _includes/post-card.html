@@ -4,10 +4,8 @@
 <a class="poster" href="{{ p.url | relative_url }}"
    data-title="{{ p.title | escape }}"
    data-rating="{{ p.rating | default: 0 }}"
-   data-date="{{ wy }}-{{ p.date | date: '%Y%m%d' }}"
-   data-status="{{ p.status | default: '완료' }}">
+   data-date="{{ wy }}-{{ p.date | date: '%Y%m%d' }}">
   <img src="{% include thumb.html post=p %}" alt="{{ p.title | escape }}" loading="lazy">
-  {%- if p.status and p.status != '완료' -%}<span class="badge">{{ p.status }}</span>{%- endif -%}
   <span class="info">
     <b>{{ p.title }}</b>
     <small>{% if p.rating %}★ {{ p.rating }}{% endif %}{% if p.rating and p.year %} · {% endif %}{{ p.year }}</small>

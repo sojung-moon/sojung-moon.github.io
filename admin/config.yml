@@ -40,15 +40,8 @@ collections:
         required: false
         hint: "본 연도만 입력 (예: 2025). 비워 두면 글을 저장한 해로 정렬·통계에 쓰입니다"
       - { label: 별점, name: rating, widget: number, value_type: float, min: 0, max: 5, step: 0.5, hint: "0.5 단위, 5점 만점" }
-      - { label: 본 곳, name: platform, widget: string, required: false, hint: "예: 넷플릭스, 극장" }
-      - label: 상태
-        name: status
-        widget: select
-        options: ["완료", "시청중", "하차"]
-        default: "완료"
       - { label: 다시 봄, name: rewatch, widget: boolean, default: false }
       - { label: 전체 화수, name: episodes, widget: number, value_type: int, required: false, hint: "시리즈만 입력" }
-      - { label: 현재까지 본 화수, name: progress, widget: number, value_type: int, required: false, hint: "시청중일 때만 입력" }
       - { label: 감상, name: body, widget: richtext, required: false }
 
   - name: quotes

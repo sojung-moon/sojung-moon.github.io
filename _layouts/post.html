@@ -21,12 +21,11 @@ layout: default
         {% if page.year %}<dt>개봉</dt><dd>{{ page.year }}년</dd>{% endif %}
         {% assign wy = page.watched | append: "" | slice: 0, 4 %}
         {% if wy != blank %}<dt>시청</dt><dd>{{ wy }}년</dd>{% endif %}
-        {% if page.platform != blank %}<dt>플랫폼</dt><dd>{{ page.platform }}</dd>{% endif %}
         {% if page.episodes %}
         <dt>분량</dt>
-        <dd>{% if page.progress %}{{ page.progress }} / {% endif %}{{ page.episodes }}화</dd>
+        <dd>{{ page.episodes }}화</dd>
         {% endif %}
-        {% if page.status %}<dt>상태</dt><dd>{{ page.status }}{% if page.rewatch %} · 다시 봄{% endif %}</dd>{% endif %}
+        {% if page.rewatch %}<dt>다시 봄</dt><dd>예</dd>{% endif %}
       </dl>
 
       {% if page.tags.size > 0 %}
