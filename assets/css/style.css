@@ -154,10 +154,14 @@ a.dot:hover { background: var(--muted); }
 
 /* ───────── 필터 / 정렬 ───────── */
 .pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 22px; }
+@media (max-width: 560px) { .pg { min-width: 32px; height: 32px; padding: 0 6px; } .pages { gap: 4px; } }
 .pg {
   min-width: 34px; height: 34px; padding: 0 8px; border-radius: 999px; cursor: pointer;
   background: transparent; border: 1px solid var(--line); color: var(--muted); font-size: 13px;
 }
+.pg:disabled { opacity: .35; cursor: default; }
+.pg:disabled:hover { color: var(--muted); border-color: var(--line); }
+.pg-gap { align-self: center; color: var(--muted); font-size: 13px; }
 .pg:hover { color: var(--accent); border-color: var(--accent); }
 .pg.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
 .controls { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 16px; }

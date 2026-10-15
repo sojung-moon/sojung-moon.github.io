@@ -84,6 +84,36 @@
 
   /* 연도 필터 + 정렬 + 페이지 나누기 (카테고리 페이지) */
   const PER_PAGE = 24;
+  /* ‹ 1 … 4 5 6 … 17 › 형태의 간단한 페이지 이동 */
+  const buildPager = (box, page, pages, go) => {
+    box.innerHTML = '';
+    if (pages < 2) return;
+    const add = (label, target, cls, aria) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pg' + (cls ? ' ' + cls : '');
+      b.textContent = label;
+      if (aria) b.setAttribute('aria-label', aria);
+      if (target === null) b.disabled = true;
+      else b.addEventListener('click', () => go(target));
+      box.appendChild(b);
+    };
+    add('‹', page > 1 ? page - 1 : null, '', '이전 페이지');
+    const want = new Set([1, pages, page - 1, page, page + 1]);
+    let last = 0;
+    for (let i = 1; i <= pages; i++) {
+      if (!want.has(i)) continue;
+      if (i - last > 1) {
+        const dots = document.createElement('span');
+        dots.className = 'pg-gap';
+        dots.textContent = '…';
+        box.appendChild(dots);
+      }
+      add(String(i), i, i === page ? 'on' : '', i + ' 페이지');
+      last = i;
+    }
+    add('›', page < pages ? page + 1 : null, '', '다음 페이지');
+  };
   $$('[data-controls]').forEach((ctrl) => {
     const scope = ctrl.parentElement;
     const list = $('[data-list]', scope);
@@ -106,21 +136,11 @@
         const cur = new Set(shown.slice((page0 - 1) * PER_PAGE, page0 * PER_PAGE));
         all.forEach((c) => { c.hidden = !cur.has(c); });
         groups.forEach((g) => { g.hidden = !$$('.poster', g).some((c) => !c.hidden); });
-        pager0.innerHTML = '';
-        if (pages < 2) return;
-        for (let i = 1; i <= pages; i++) {
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.className = 'pg' + (i === page0 ? ' on' : '');
-          b.textContent = i;
-          if (i === page0) b.setAttribute('aria-current', 'page');
-          b.addEventListener('click', () => {
-            page0 = i;
-            draw();
-            scope.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          });
-          pager0.appendChild(b);
-        }
+        buildPager(pager0, page0, pages, (i) => {
+          page0 = i;
+          draw();
+          scope.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       };
       ['', ...groups.map((g) => g.dataset.year)].forEach((y) => {
         const b = document.createElement('button');
@@ -161,21 +181,11 @@
       order.forEach((c) => list.appendChild(c));
       cards.forEach((c) => { c.hidden = true; });
       shown.slice((page - 1) * PER_PAGE, page * PER_PAGE).forEach((c) => { c.hidden = false; });
-      pager.innerHTML = '';
-      if (pages < 2) return;
-      for (let i = 1; i <= pages; i++) {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'pg' + (i === page ? ' on' : '');
-        b.textContent = i;
-        if (i === page) b.setAttribute('aria-current', 'page');
-        b.addEventListener('click', () => {
-          page = i;
-          render();
-          scope.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-        pager.appendChild(b);
-      }
+      buildPager(pager, page, pages, (i) => {
+        page = i;
+        render();
+        scope.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     };
 
     if (chipBox) {
