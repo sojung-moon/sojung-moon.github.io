@@ -14,25 +14,20 @@
     });
   }
 
-  /* Menu 팝오버 */
+  /* Menu 버튼: 사이드바 열기 / 닫기 */
   const menuBtn = $('#menu-btn');
-  const menuPop = $('#menu-pop');
-  if (menuBtn && menuPop) {
-    const setOpen = (open) => {
-      menuPop.hidden = !open;
-      menuBtn.setAttribute('aria-expanded', String(open));
-    };
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setOpen(menuPop.hidden);
-    });
-    document.addEventListener('click', (e) => {
-      if (!menuPop.contains(e.target)) setOpen(false);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
-    });
+  const menuClose = $('#menu-close');
+  const setMenu = (open) => {
+    document.body.classList.toggle('menu-open', open);
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', String(open));
+  };
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
   }
+  if (menuClose) menuClose.addEventListener('click', () => setMenu(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
+  });
 
   /* 검색 (빌드 때 생성되는 /search.json 사용) */
   const input = $('#q');
