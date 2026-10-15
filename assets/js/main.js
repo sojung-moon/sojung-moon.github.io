@@ -88,21 +88,54 @@
     const scope = ctrl.parentElement;
     const list = $('[data-list]', scope);
     if (!list) {
-      /* 홈(아카이브): 연도 칩으로 연도 묶음을 걸러냅니다 */
+      /* 홈(아카이브): 연도 칩 + 페이지 나누기 */
       const chipBox0 = $('.chips', ctrl);
       const groups = $$('.year-group', scope);
       if (!chipBox0 || !groups.length) return;
+      const all = $$('.poster', scope);
+      const pager0 = document.createElement('nav');
+      pager0.className = 'pages';
+      pager0.setAttribute('aria-label', '페이지');
+      groups[groups.length - 1].after(pager0);
+      let y0 = '';
+      let page0 = 1;
+      const draw = () => {
+        const shown = all.filter((c) => !y0 || c.dataset.date.slice(0, 4) === y0);
+        const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
+        if (page0 > pages) page0 = pages;
+        const cur = new Set(shown.slice((page0 - 1) * PER_PAGE, page0 * PER_PAGE));
+        all.forEach((c) => { c.hidden = !cur.has(c); });
+        groups.forEach((g) => { g.hidden = !$$('.poster', g).some((c) => !c.hidden); });
+        pager0.innerHTML = '';
+        if (pages < 2) return;
+        for (let i = 1; i <= pages; i++) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'pg' + (i === page0 ? ' on' : '');
+          b.textContent = i;
+          if (i === page0) b.setAttribute('aria-current', 'page');
+          b.addEventListener('click', () => {
+            page0 = i;
+            draw();
+            scope.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          pager0.appendChild(b);
+        }
+      };
       ['', ...groups.map((g) => g.dataset.year)].forEach((y) => {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'chip' + (y === '' ? ' on' : '');
         b.textContent = y === '' ? '전체' : y;
         b.addEventListener('click', () => {
+          y0 = y;
+          page0 = 1;
           $$('.chip', chipBox0).forEach((c) => c.classList.toggle('on', c === b));
-          groups.forEach((g) => { g.hidden = !!y && g.dataset.year !== y; });
+          draw();
         });
         chipBox0.appendChild(b);
       });
+      draw();
       return;
     }
     const cards = $$('.poster', list);
