@@ -8,7 +8,7 @@ layout: default
     <img class="poster-lg" src="{% include thumb.html post=page %}" alt="{{ page.title | escape }} 포스터">
     <div class="post-meta">
       <p class="kicker">
-        {%- if cat -%}<a href="{{ '/category/' | append: cat.slug | append: '/' | relative_url }}">{{ cname }}</a>{%- else -%}{{ cname }}{%- endif -%}
+        {%- if cat -%}<a href="{{ '/category/' | append: cat.slug | append: '/' | relative_url }}">{{ cat.label | default: cname }}</a>{%- else -%}{{ cname }}{%- endif -%}
       </p>
       <h1>{{ page.title }}</h1>
       {% if page.original_title != blank %}<p class="orig">{{ page.original_title }}</p>{% endif %}

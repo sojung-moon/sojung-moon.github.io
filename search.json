@@ -4,10 +4,13 @@ layout: null
 [
 {%- for p in site.posts -%}
   {%- capture th -%}{% include thumb.html post=p %}{%- endcapture -%}
+  {%- assign cn = p.categories | first -%}
+  {%- assign lbl = site.data.categories | where: "name", cn | map: "label" | first -%}
   {
     "title": {{ p.title | jsonify }},
     "original": {{ p.original_title | default: "" | jsonify }},
-    "category": {{ p.categories | first | jsonify }},
+    "category": {{ lbl | default: cn | jsonify }},
+    "cname": {{ cn | jsonify }},
     "tags": {{ p.tags | jsonify }},
     "url": {{ p.url | relative_url | jsonify }},
     "thumb": {{ th | strip | jsonify }}

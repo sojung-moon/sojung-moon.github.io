@@ -39,7 +39,7 @@ permalink: /stats/
   {% for c in site.data.categories %}
     {%- assign n = site.categories[c.name].size | default: 0 -%}
     {%- assign pct = n | times: 100 | divided_by: total -%}
-    <div class="row"><span>{{ c.name }}</span><div class="bar"><span style="width: {{ pct }}%"></span></div><b>{{ n }}</b></div>
+    <div class="row"><span>{{ c.label | default: c.name }}</span><div class="bar"><span style="width: {{ pct }}%"></span></div><b>{{ n }}</b></div>
   {% endfor %}
 
   <h2>연도별</h2>

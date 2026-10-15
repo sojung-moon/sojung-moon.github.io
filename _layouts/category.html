@@ -4,7 +4,8 @@ layout: default
 {%- assign posts = site.categories[page.category_name] -%}
 <section class="card section">
   <div class="sec-head">
-    <h1>{{ page.category_name }}</h1>
+    {%- assign cat = site.data.categories | where: "name", page.category_name | first -%}
+    <h1>{{ cat.label | default: page.category_name }}</h1>
     <span class="count">{{ posts.size | default: 0 }}</span>
   </div>
   {{ content }}

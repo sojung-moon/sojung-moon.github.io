@@ -62,7 +62,7 @@
       if (norm(input.value).trim() !== term) return;
       const hits = data
         .filter((p) =>
-          norm([p.title, p.original, p.category].concat(p.tags || []).join(' ')).includes(term)
+          norm([p.title, p.original, p.category, p.cname].concat(p.tags || []).join(' ')).includes(term)
         )
         .slice(0, 8);
       box.innerHTML = hits.length

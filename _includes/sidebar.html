@@ -15,7 +15,7 @@
   <ul>
     {%- for c in site.data.categories -%}
     {%- assign n = site.categories[c.name].size | default: 0 -%}
-    <li><a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.name }}</span><em>{{ n }}</em></a></li>
+    <li><a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.label | default: c.name }}</span><em>{{ n }}</em></a></li>
     {%- endfor -%}
   </ul>
 </nav>
