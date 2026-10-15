@@ -28,6 +28,12 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenu(false);
   });
+  /* 패널 형태(좁은 화면)에서는 바깥을 눌러도 닫힙니다 */
+  document.addEventListener('click', (e) => {
+    if (!document.body.classList.contains('menu-open') || window.innerWidth > 1239) return;
+    if (e.target.closest('#side') || e.target.closest('#menu-btn')) return;
+    setMenu(false);
+  });
 
   /* 검색 (빌드 때 생성되는 /search.json 사용) */
   const input = $('#q');
