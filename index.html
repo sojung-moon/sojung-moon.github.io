@@ -7,7 +7,7 @@ layout: default
     <span class="count">{{ site.posts.size }}</span>
   </div>
   {% if paginator.posts.size > 0 %}
-  <div class="grid">
+  <div class="grid home-grid">
     {% for p in paginator.posts %}{% include post-card.html post=p %}{% endfor %}
   </div>
   {% else %}
@@ -16,7 +16,7 @@ layout: default
 </section>
 
 {% if paginator.total_pages > 1 %}
-<nav class="dots" aria-label="페이지">
+<nav class="dots home-dots" aria-label="페이지">
   {% for i in (1..paginator.total_pages) %}
     {% if i == paginator.page %}
       <span class="dot on" aria-current="page"></span>

@@ -270,7 +270,11 @@ dl.meta dd { margin: 0; }
   .main { gap: 10px; }
   .card { padding: 18px; }
   .side { grid-template-columns: 1fr; }
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .home-grid .poster:nth-child(n+7), .home-dots { display: none; }
+  .poster .info { padding: 24px 7px 7px; }
+  .poster .info b { font-size: 11.5px; }
+  .poster .info small { font-size: 10px; }
   .pill { padding: 8px 18px; }
   .post-head { grid-template-columns: 1fr; }
   .poster-lg { max-width: 180px; }
