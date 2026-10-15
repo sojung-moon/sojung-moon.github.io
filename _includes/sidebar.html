@@ -20,9 +20,8 @@
     <li><a href="{{ '/category/' | append: c.slug | append: '/' | relative_url }}"{% if page.category_slug == c.slug %} class="on"{% endif %}>{% include icon.html name=c.icon %}<span>{{ c.label | default: c.name }}</span><em>{{ n }}</em></a></li>
     {%- endfor -%}
   </ul>
-</nav>
 
-<nav class="box nav book" aria-label="Book">
+  <div class="nav-line"></div>
   <ul>
     <li><a href="{{ '/book/' | relative_url }}"{% if page.url == '/book/' %} class="on"{% endif %}>{% include icon.html name="book" %}<span>Book</span></a></li>
   </ul>
